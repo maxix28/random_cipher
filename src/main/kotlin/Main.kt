@@ -6,13 +6,21 @@ class chipher(){
     var attemp=""
     var bull=0
     var cows=0
-    var pseudoRandomNumber = System.nanoTime()
+    var turn = 1
     init{
-
+        println("Please, enter the secret code's length")
         setCode()
-        //readAttemt()
-        // check()
-        //  Grade()
+        while (true){
+            println("Turn $turn:")
+            readAttemt()
+            check()
+            if(  Grade()){
+                break
+            }
+            turn++
+        }
+        println("Congratulations! You guessed the secret code.")
+
     }
     fun setCode(){
         var code = ""
@@ -31,16 +39,17 @@ class chipher(){
             break
         }
         secret_Code= code
-        println("The random secret number is $secret_Code.")
+        println("Okay, let's start a game!")
     }
     fun readAttemt(){
         attemp= readln()
 
     }
     fun check(){
+
         bull=0
         cows=0
-        for ( i in 0..3){
+        for ( i in 0..secret_Code.length-1){
             if(secret_Code[i] in attemp){
                 cows++
             }
@@ -50,21 +59,30 @@ class chipher(){
             }
 
         }}
-    fun Grade(){
+    fun Grade():Boolean{
+        var win = false
         if(bull==0&&cows==0){
-            println("Grade: None. The secret code is $secret_Code.")
+            println("Grade: None")
         }
         else if(cows==0){
-            println("Grade: $bull bull(s). The secret code is $secret_Code.")
+            println("Grade: $bull bull(s)")
 
         }
         else if(bull==0){
-            println("Grade:$cows cow(s). The secret code is $secret_Code.")
+            println("Grade:$cows cow(s)")
 
         }
         else{
-            println("Grade: $bull bull(s) and $cows cow(s). The secret code is $secret_Code.")
+            println("Grade: $bull bull(s) and $cows cow(s)")
         }
+        if(bull==secret_Code.length){
+            win =true
+        }
+        if(win){
+            return true
+        }
+        else return false
+
     }
 }
 fun main() {
